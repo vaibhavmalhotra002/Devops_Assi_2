@@ -67,8 +67,48 @@ kubectl apply -f hpa.yaml
 This will allow Kubernetes to allocate resources appropriately and prevent resource starvation or contention.
 
 Here's how I specifed resource limitations in my Deployment YAML:
-![image](https://github.com/vaibhavmalhotra002/Devops_Assi_2/assets/76607940/6db703c1-2615-431d-bcbc-e71dfdb1ad88)
+![image](https://github.com/vaibhavmalhotra002/Devops_Assi_2/assets/76607940/d641e13b-e9a8-4513-a8d7-9c337875ae3a)
+In this configuration:
 
+requests specify the minimum amount of resources that the container requires. &
+limits specify the maximum amount of resources that the container is allowed to use.
+
+### After updating the Deployment YAML with resource limitations, you can apply the changes to your Kubernetes cluster:
+
+## kubectl apply -f deployment.yaml
+ This ensures that each pod running my Node.js application works to the specified resource limitations, preventing resource contention and ensuring stable performance of my 
+ application.
+
+### Sixth, To simulate increased traffic and stress test my application using hey (a load testing tool), I followed these steps:
+
+1. Install hey
+First if haven't already, you need to install hey. You can find installation instructions in the hey GitHub repository: https://github.com/rakyll/hey#install
+I have a mac with homebrew installed so I installed it easily using  brew install hey.
+
+2. Determine Load Parameters
+Decide on the load parameters you want to simulate, such as the number of requests (-n), the concurrency level (-c), and any additional options you want to use.
+
+3. Run Load Test
+Run hey with the desired parameters to stress test your application. For example:
+I ran using :-
+
+hey -n 1000 -c 50 http://your-nodejs-app-url/
+This command sends 1000 requests with a concurrency level of 50 to the specified URL.(in my case it's http://localhost:3000/ )
+![image](https://github.com/vaibhavmalhotra002/Devops_Assi_2/assets/76607940/e7cd52fa-5867-4066-bf26-a04222bcb51b)
+
+4. Analyze Results
+Once the load test completes, hey will display various metrics such as requests per second, latency statistics, and errors encountered. Analyze these metrics to understand how your application performs under load.
+
+Example Load Test
+Here's another example of a load test command using hey:
+
+hey -n 2000 -c 150 http://localhost:3000/
+& Observe how it responds
+![image](https://github.com/vaibhavmalhotra002/Devops_Assi_2/assets/76607940/85f30f87-815f-4a8f-9969-484943f042a6)
+-n 2000: Specifies 2000 total requests to be made.
+-c 150: Sets the concurrency level to 150, meaning 150 requests will be made concurrently.
+
+You can adjust the parameters according to your specific testing requirements and the expected traffic load on your application.
 
 
 
